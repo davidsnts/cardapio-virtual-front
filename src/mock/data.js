@@ -13,6 +13,24 @@ const produtos = [
     },
     {
         categoria: "Comidas",
+        nome: "Churrasco",
+        valor: 18.00,
+        complementos: ['Churrasco Misto', 'Arroz', 'Feijão', 'Farofa', 'Vinagrete', 'Salpicão']
+    },
+    {
+        categoria: "Comidas",
+        nome: "Churrasco",
+        valor: 18.00,
+        complementos: ['Churrasco Misto', 'Arroz', 'Feijão', 'Farofa', 'Vinagrete', 'Salpicão']
+    },
+    {
+        categoria: "Comidas",
+        nome: "Churrasco",
+        valor: 18.00,
+        complementos: ['Churrasco Misto', 'Arroz', 'Feijão', 'Farofa', 'Vinagrete', 'Salpicão']
+    },
+    {
+        categoria: "Comidas",
         nome: "Strogonoff",
         valor: 18.00,
         complementos: ['Stronoff de frango', 'Arroz', 'Batata Palha']
