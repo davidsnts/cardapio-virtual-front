@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { findProductById } from '../../services/produto.service';
 import { GiCancel } from 'react-icons/gi';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { useCart } from '../../context/CartContext';
 
 const ProdutoSelecionado = () => {
     const { id } = useParams();
     const [prod, setProd] = useState(null);
     const [quantidade, setQuantidade] = useState(1);
+    const { addCarrinho } = useCart();
+    const navigate = useNavigate();
 
     const removerComplemento = (complementoId) => {
         setProd((prevProd) => ({
@@ -17,6 +20,11 @@ const ProdutoSelecionado = () => {
             ),
         }));
     };
+
+    const handleAddCarrinho = (item) => {
+        addCarrinho(item);
+        navigate('/produtoAddCarrinho')
+    }
 
     const aumentarQuantidade = () => setQuantidade((prev) => prev + 1);
     const diminuirQuantidade = () =>
@@ -87,7 +95,7 @@ const ProdutoSelecionado = () => {
                     </div>
                 </div>
 
-                <button className="mt-8 w-full bg-primary hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl transition-colors">
+                <button onClick={() => handleAddCarrinho(prod)} className="cursor-pointer duration-500 hover:scale-105 hover:font-bold hover:text-xl mt-8 w-full bg-primary hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl transition-allon">
                     Adicionar ao Carrinho
                 </button>
             </div>
