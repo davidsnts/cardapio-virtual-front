@@ -1,11 +1,40 @@
-import api from './api'
+import api from './api';
 
-const findAllProducts = () => api.get('/produto/findAll')
-    .then((response) => response)
-    .catch((err) => err);
+const findAllProducts = async () => {
+    try {
+        const response = await api.get('/produto/findAll');
+        return response.data;
+    } catch (err) {
+        console.error("Erro ao buscar todos os produtos:", err);
+        return [];
+    }
+};
 
-const findProductById = (id) => api.get(`/produto/findById/${id}`)
-    .then((response) => response)
-    .catch((err) => err)
+const findProductById = async (id) => {
+    try {
+        const response = await api.get(`/produto/findById/${id}`);
+        return response.data;
+    } catch (err) {
+        console.error(`Erro ao buscar produto ${id}:`, err);
+        return null;
+    }
+};
 
-export { findProductById, findAllProducts }
+const getCategorias = async () => {
+    const produtos = await findAllProducts();
+    const categorias = produtos.map((produto) => produto.categoria);
+    return categorias.filter((cat, index) => categorias.indexOf(cat) === index);
+    
+};
+
+const getProdutosByCategoria = async (categoria) => {
+    const produtos = await findAllProducts();
+    return produtos.filter((p) => p.categoria === categoria);
+};
+
+export {
+    findAllProducts,
+    findProductById,
+    getCategorias,
+    getProdutosByCategoria
+};

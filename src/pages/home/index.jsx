@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getCategorias, getProdutosByCategoria } from "../../mock/data";
 import Produto from "../../components/Produto";
+import { getCategorias, getProdutosByCategoria } from '../../services/produto.service'
+import ListaProdutos from "../../components/ListaProdutos";
 
 const Home = () => {
   const [categoriasData, setCategoriasData] = useState([]);
@@ -11,20 +12,25 @@ const Home = () => {
     setCategoriaSelecionada(categoria);
   };
 
-  // Inicializa categorias e seleciona a primeira
   useEffect(() => {
-    const categorias = getCategorias();
-    setCategoriasData(categorias);
-    if (categorias.length > 0) {
+    const getCategoriasAsync = async () => {
+      const categorias = await getCategorias();
+      setCategoriasData(categorias);
       selecionaCategoria(categorias[0]);
     }
+
+    getCategoriasAsync();
   }, []);
 
-  // Atualiza produtos quando a categoria selecionada mudar
   useEffect(() => {
-    if (categoriaSelecionada) {
-      setProdutosFiltradosCategoria(getProdutosByCategoria(categoriaSelecionada));
-    }
+    const getProdutosAsync = async () => {
+      if (categoriaSelecionada) {
+        const produtos = await getProdutosByCategoria(categoriaSelecionada);
+        setProdutosFiltradosCategoria(produtos);
+      }
+    };
+
+    getProdutosAsync();
   }, [categoriaSelecionada]);
 
   return (
@@ -35,9 +41,9 @@ const Home = () => {
       <div className="mt-5 flex flex-col items-center gap-5">
         <h1 className="color-primary font-bold">Categorias</h1>
         <ul className="flex gap-1 text-slate-500">
-          {categoriasData.map((categoria, i) => (
+          {categoriasData.map((categoria) => (
             <li
-              key={i}
+              key={categoria}
               onClick={() => selecionaCategoria(categoria)}
               className={`cursor-pointer px-3 py-1 rounded-sm transition duration-300 hover:scale-105 
                 ${categoriaSelecionada === categoria
@@ -51,13 +57,10 @@ const Home = () => {
         </ul>
       </div>
 
-      {/* Cards de Produtos */}
-      {categoriaSelecionada && (
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {produtosFiltradosCategoria.map((produto, i) => (
-            <Produto produto={produto} i={i} />
-          ))}
-        </div>
+      {produtosFiltradosCategoria.length > 0 && (
+
+        <ListaProdutos produtos={produtosFiltradosCategoria} />
+
       )}
     </div>
   );
