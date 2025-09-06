@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import ProdutoSelecionado from './pages/produtoSelecionado'
 import { CartProvider } from './context/CartContext';
 import ProdutoAdicionadoCarrinho from './pages/produtoAdicionadoCarrinho';
+import Carrinho from './pages/carrinho';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/produtoSelecionado/:id" element={<ProdutoSelecionado />} />
         <Route path="/produtoAddCarrinho" element={<ProdutoAdicionadoCarrinho />} />
+        <Route path="/carrinho" element={<Carrinho />} />
       </Routes>
     </CartProvider>
   )

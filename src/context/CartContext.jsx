@@ -38,9 +38,18 @@ export const CartProvider = ({ children }) => {
         setCarrinho(ordenarCarrinho([...newCarrinho, item]));
     };
 
+    const updateQtdItem = (id, quantidade) => {
+        if (quantidade > 0) {
+            const item = carrinho.find(i => i._id === id)
+            item.quantidade = quantidade;
+            const newCarrinho = carrinho.filter((p) => p._id !== item._id);
+            setCarrinho(ordenarCarrinho([...newCarrinho, item]));
+        }
+    }
+
     return (
         <CartContext.Provider
-            value={{ carrinho, setCarrinho, addCarrinho, limparCarrinho, removeItem, updateItem }}
+            value={{ carrinho, setCarrinho, addCarrinho, limparCarrinho, removeItem, updateItem, updateQtdItem }}
         >
             {children}
         </CartContext.Provider>

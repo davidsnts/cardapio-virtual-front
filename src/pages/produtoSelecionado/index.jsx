@@ -22,7 +22,8 @@ const ProdutoSelecionado = () => {
     };
 
     const handleAddCarrinho = (item) => {
-        addCarrinho(item);
+        const newItem = { ...item, quantidade }
+        addCarrinho(newItem);
         navigate('/produtoAddCarrinho')
     }
 
@@ -40,7 +41,6 @@ const ProdutoSelecionado = () => {
     }, [id]);
 
     useEffect(() => {
-        console.log(prod);
     }, [prod]);
 
     if (!prod) {

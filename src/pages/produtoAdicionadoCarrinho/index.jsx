@@ -12,10 +12,10 @@ const ProdutoAdicionadoCarrinho = () => {
             </span>
 
             <div className="flex gap-4 w-full">
-                <button onClick={() => navigate('/carrinho')} className="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-xl transition-colors">
+                <button onClick={() => navigate('/carrinho')} className="flex-1 bg-primary cursor-pointer text-white font-medium py-2 px-4 rounded-xl transition-colors">
                     Ir para o Carrinho
                 </button>
-                <button onClick={() => navigate('/')} className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-xl transition-colors">
+                <button onClick={() => navigate('/')} className="flex-1 bg-gray-200 cursor-pointer hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-xl transition-colors">
                     Continuar Comprando
                 </button>
             </div>
