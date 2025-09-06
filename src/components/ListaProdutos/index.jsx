@@ -1,6 +1,8 @@
+import { Navigate, useNavigate } from "react-router-dom";
 const ListaProdutos = ({ produtos }) => {
+  const navigate = useNavigate();
   return (
-    <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 overflow-scroll">
+    <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 ">
       {produtos.map((produto) => (
         <li
           key={produto._id}
@@ -29,7 +31,7 @@ const ListaProdutos = ({ produtos }) => {
             </div>
           </div>
 
-          <button className="mt-6 bg-primary hover:scale-105 text-white font-medium py-2 px-4 rounded-sm transition-colors">
+          <button onClick={() => navigate(`/produtoSelecionado/${produto._id}`)} className="mt-6 bg-primary hover:scale-105 text-white font-medium py-2 px-4 rounded-sm transition-colors">
             Adicionar ao Carrinho
           </button>
         </li>
