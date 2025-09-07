@@ -100,9 +100,13 @@ const Carrinho = () => {
                             R$ {total.toFixed(2)}
                         </span>
                     </div>
+                    <button onClick={() => navigate('/')} className="w-full mb-4 bg-slate-200 hover:bg-slate-300 text-slate-600 font-medium py-3 px-4 rounded-sm transition-colors cursor-pointer">
+                        Voltar
+                    </button>
                     <button onClick={() => navigate('/dadosUsuarioPedido')} className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-sm transition-colors cursor-pointer">
                         Finalizar Compra
                     </button>
+
                 </div>
             </div>
         </div>
