@@ -37,7 +37,7 @@ const CadDadosUsuarioPedido = () => {
     }, []);
 
     return (
-        <div className="w-full flex items-center justify-center">
+        <div className="mt-10 w-full flex items-center justify-center">
             <form
                 onSubmit={handleSubmit}
                 className="flex flex-col justify-center bg-white px-8 pb-8 py-4 rounded-2xl shadow-2xl w-full max-w-2xl"
