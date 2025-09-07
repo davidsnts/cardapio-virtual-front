@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { GiCancel } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
 
 const Carrinho = () => {
     const { carrinho, updateQtdItem, removeItem } = useCart();
     const [total, setTotal] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const calcularTotal = () => {
@@ -35,7 +37,6 @@ const Carrinho = () => {
             </h1>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
-                {/* Lista de Itens */}
                 <div className="md:col-span-2 bg-white shadow-lg rounded-2xl p-6">
                     <ul className="divide-y divide-gray-200">
                         {carrinho.map((item) => (
@@ -47,6 +48,11 @@ const Carrinho = () => {
                                     <span className="font-semibold text-gray-800">
                                         {item.nome}
                                     </span>
+                                    <ul className="text-gray-600">
+                                        {item.complementos.map((comp) => (
+                                            <li className="list-disc list-inside" key={comp._id}>{comp.nome}</li>
+                                        ))}
+                                    </ul>
                                     <span className="text-sm text-gray-500">
                                         R$ {item.precoUnitario.toFixed(2)} / un
                                     </span>
@@ -84,7 +90,6 @@ const Carrinho = () => {
                     </ul>
                 </div>
 
-                {/* Resumo do Carrinho */}
                 <div className="bg-gray-50 shadow-lg rounded-2xl p-6 flex flex-col justify-between">
                     <h2 className="text-xl font-semibold text-gray-800 mb-4">
                         Resumo da Compra
@@ -95,7 +100,7 @@ const Carrinho = () => {
                             R$ {total.toFixed(2)}
                         </span>
                     </div>
-                    <button className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-xl transition-colors">
+                    <button onClick={() => navigate('/dadosUsuarioPedido')} className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-sm transition-colors cursor-pointer">
                         Finalizar Compra
                     </button>
                 </div>
