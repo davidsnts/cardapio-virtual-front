@@ -1,14 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import { useEffect, useState } from "react";
+import { MdLocationOn } from "react-icons/md";
 
 const ConfirmaPedido = () => {
     const { carrinho } = useCart();
     const navigate = useNavigate();
+    const [dadosCliente, setDadosCliente] = useState({});
 
     const totalPedido = carrinho.reduce(
         (acc, item) => acc + item.precoUnitario * item.quantidade,
         0
     );
+
+    useEffect(() => {
+        const dados = JSON.parse(localStorage.getItem('usuario'));
+        if (dados) {
+            setDadosCliente(dados);
+        }
+    }, []);
 
     return (
         <div className="w-full flex items-center justify-center py-10">
@@ -16,6 +26,12 @@ const ConfirmaPedido = () => {
                 <h1 className="text-2xl font-bold text-slate-700 mb-6 text-center">
                     Deseja confirmar seu pedido?
                 </h1>
+
+                <div className="flex flex-col">
+                    <span className="flex gap-2 items-center"><MdLocationOn color="red" className="text-4xl" /> Endereço de entrega</span>
+                    <span className="text-slate-600">{dadosCliente?.rua}, {dadosCliente.numero}. {dadosCliente?.bairro}</span>
+                    <span className="text-slate-600">{dadosCliente?.complemento}</span>
+                </div>
 
                 {/* Lista de itens */}
                 <ul className="divide-y divide-gray-200">
