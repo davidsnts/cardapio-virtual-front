@@ -9,6 +9,7 @@ const ProdutoSelecionado = () => {
     const { id } = useParams();
     const [prod, setProd] = useState(null);
     const [quantidade, setQuantidade] = useState(1);
+    const [observacao, setObservacao] = useState('')
     const { addCarrinho } = useCart();
     const navigate = useNavigate();
 
@@ -22,9 +23,14 @@ const ProdutoSelecionado = () => {
     };
 
     const handleAddCarrinho = (item) => {
-        const newItem = { ...item, quantidade }
+        const newItem = { ...item, quantidade, observacao }
         addCarrinho(newItem);
         navigate('/produtoAddCarrinho')
+    }
+
+    const handleObs = (e) => {
+        const obs = e.target.value;
+        setObservacao(obs);        
     }
 
     const aumentarQuantidade = () => setQuantidade((prev) => prev + 1);
@@ -93,6 +99,11 @@ const ProdutoSelecionado = () => {
                             className="cursor-pointer text-xl hover:text-green-600"
                         />
                     </div>
+                </div>
+
+                <div className='flex flex-col'>
+                    <span className='text-slate-700'>Alguma observação?</span>
+                    <textarea onChange={handleObs} maxLength={200} id='observacao' name='observacao' className='border border-slate-400 rounded-sm'></textarea>
                 </div>
 
                 <button onClick={() => handleAddCarrinho(prod)} className="cursor-pointer duration-500 hover:scale-105 hover:font-bold hover:text-xl mt-8 w-full bg-primary hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl transition-allon">

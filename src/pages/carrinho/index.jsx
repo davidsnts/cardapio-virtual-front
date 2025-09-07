@@ -48,18 +48,23 @@ const Carrinho = () => {
                                     <span className="font-semibold text-gray-800">
                                         {item.nome}
                                     </span>
-                                    <ul className="text-gray-600">
+                                    <ul className="text-gray-600  md:w-72">
                                         {item.complementos.map((comp) => (
                                             <li className="list-disc list-inside" key={comp._id}>{comp.nome}</li>
                                         ))}
                                     </ul>
+                                    {item.observacao &&
+                                        <span className="text-gray-600">
+                                            Observação: {item.observacao}
+                                        </span>}
+
                                     <span className="text-sm text-gray-500">
                                         R$ {item.precoUnitario.toFixed(2)} / un
                                     </span>
                                 </div>
 
                                 {/* Controle de quantidade */}
-                                <div className="flex items-center gap-3">
+                                <div className="flex items-center gap-3 mx-4">
                                     <AiOutlineMinus
                                         onClick={() =>
                                             updateQtdItem(item._id, item.quantidade - 1)
@@ -90,7 +95,7 @@ const Carrinho = () => {
                     </ul>
                 </div>
 
-                <div className="bg-gray-50 shadow-lg rounded-2xl p-6 flex flex-col justify-between">
+                <div className="bg-gray-50 shadow-lg rounded-2xl p-6 flex flex-col">
                     <h2 className="text-xl font-semibold text-gray-800 mb-4">
                         Resumo da Compra
                     </h2>
