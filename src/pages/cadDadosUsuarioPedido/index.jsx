@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 const CadDadosUsuarioPedido = () => {
     const navigate = useNavigate();
 
@@ -10,7 +9,9 @@ const CadDadosUsuarioPedido = () => {
         bairro: "",
         rua: "",
         numero: "",
-        complemento: ""
+        complemento: "",
+        formaPagamento: "Pix",
+        troco: ""
     });
 
     const handleChange = (e) => {
@@ -19,26 +20,24 @@ const CadDadosUsuarioPedido = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const dadosString = JSON.stringify(dados);
-        localStorage.setItem('usuario', dadosString);
-        navigate('/confirmarPedido');
+        localStorage.setItem("usuario", JSON.stringify(dados));
+        navigate("/confirmarPedido");
     };
 
     const getDadosStorage = () => {
-        const dados = localStorage.getItem('usuario');
-        const dadosJSON = JSON.parse(dados);
-        setDados(dadosJSON);
-    }
+        const dadosStorage = localStorage.getItem("usuario");
+        if (dadosStorage) {
+            const dadosJSON = JSON.parse(dadosStorage);
+            setDados(dadosJSON);
+        }
+    };
 
     useEffect(() => {
-        const dadosStorage = localStorage.getItem('usuario')
-        if (dadosStorage) {
-            getDadosStorage()
-        }
+        getDadosStorage();
     }, []);
 
     return (
-        <div className="w-full flex items-center justify-center ">
+        <div className="w-full flex items-center justify-center">
             <form
                 onSubmit={handleSubmit}
                 className="flex flex-col justify-center bg-white px-8 pb-8 py-4 rounded-2xl shadow-2xl w-full max-w-2xl"
@@ -48,6 +47,7 @@ const CadDadosUsuarioPedido = () => {
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Campos de endereço */}
                     <div className="flex flex-col">
                         <label htmlFor="nome" className="mb-2 text-gray-700 font-medium">
                             Nome e Sobrenome
@@ -126,6 +126,43 @@ const CadDadosUsuarioPedido = () => {
                             className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
                         />
                     </div>
+
+                    {/* Forma de pagamento */}
+                    <div className="flex flex-col md:col-span-1">
+                        <label htmlFor="formaPagamento" className="mb-2 text-gray-700 font-medium">
+                            Forma de Pagamento
+                        </label>
+                        <select
+                            id="formaPagamento"
+                            name="formaPagamento"
+                            value={dados.formaPagamento}
+                            onChange={handleChange}
+                            className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
+                        >
+                            <option value="Pix">Pix</option>
+                            <option value="Cartão">Cartão</option>
+                            <option value="Dinheiro">Dinheiro</option>
+                            
+                        </select>
+                    </div>
+
+                    {/* Troco - aparece apenas se pagamento for Dinheiro */}
+                    {dados.formaPagamento === "Dinheiro" && (
+                        <div className="flex flex-col md:col-span-1">
+                            <label htmlFor="troco" className="mb-2 text-gray-700 font-medium">
+                                Troco para
+                            </label>
+                            <input
+                                type="number"
+                                id="troco"
+                                name="troco"
+                                placeholder="Informe o valor"
+                                value={dados.troco}
+                                onChange={handleChange}
+                                className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
+                            />
+                        </div>
+                    )}
                 </div>
 
                 <button className="mt-10 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-xl transition-colors">
