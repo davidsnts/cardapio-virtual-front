@@ -20,7 +20,10 @@ const Navbar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('usuario');
+        localStorage.removeItem('carrinho');
+        setQuantidadeCarrinho(0);
         setDadosUsuario({})
+        navigate('/');
     }
 
     useEffect(() => {
