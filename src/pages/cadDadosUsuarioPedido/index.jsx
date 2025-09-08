@@ -11,7 +11,8 @@ const CadDadosUsuarioPedido = () => {
         numero: "",
         complemento: "",
         formaPagamento: "Pix",
-        troco: ""
+        troco: "",
+        telefone: ""
     });
 
     const handleChange = (e) => {
@@ -59,6 +60,22 @@ const CadDadosUsuarioPedido = () => {
                             name="nome"
                             placeholder="Digite seu nome completo"
                             value={dados.nome}
+                            onChange={handleChange}
+                            className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
+                        />
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label htmlFor="rua" className="mb-2 text-gray-700 font-medium">
+                            Telefone
+                        </label>
+                        <input
+                            required
+                            type="text"
+                            id="telefone"
+                            name="telefone"
+                            placeholder="Telefone para contato"
+                            value={dados.telefone}
                             onChange={handleChange}
                             className="border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
                         />

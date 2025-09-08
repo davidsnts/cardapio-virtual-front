@@ -26,9 +26,13 @@ const ConfirmaPedido = () => {
                 <h1 className="text-2xl font-bold text-slate-700 mb-6 text-center">
                     Deseja confirmar seu pedido?
                 </h1>
-
+                <div className="flex flex-col my-4">
+                    <span className="flex gap-2 items-center">Seu contato</span>
+                    <span className="text-slate-600">Nome: {dadosCliente?.nome}</span>
+                    <span className="text-slate-600">Telefone: {dadosCliente?.telefone}</span>
+                </div>
                 <div className="flex flex-col">
-                    <span className="flex gap-2 items-center"><MdLocationOn color="red" className="text-4xl" /> Endereço de entrega</span>
+                    <span className="flex gap-2 items-center">Endereço de entrega</span>
                     <span className="text-slate-600">{dadosCliente?.rua}, {dadosCliente.numero}. {dadosCliente?.bairro}</span>
                     <span className="text-slate-600">{dadosCliente?.complemento}</span>
                 </div>
